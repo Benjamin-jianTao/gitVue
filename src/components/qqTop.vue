@@ -24,14 +24,14 @@
 			<a href="#" class="login">登陆</a>
 		</div>
 	</div>
-	<qqNav :navList="navList" :moreListOne="moreListOne" :moreListTwo="moreListTwo"></qqNav>
+	<Nav :navList="navList" :moreListOne="moreListOne" :moreListTwo="moreListTwo"></Nav>
 </template>
 
 <script>
-	import qqNav from './nav.vue'
+	import Nav from './Nav.vue'
 	export default {
 		components: {
-			qqNav,
+			Nav,
 		},
 		methods: {
 			/*
