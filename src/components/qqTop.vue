@@ -19,21 +19,33 @@
 			</div>
 		</div>
 		<div class="top_link">
-			<a class="iconfont icon">&#xe671;</a>
-			<a class="iconfont icon">&#xe5c8;</a>
+			<a @mouseenter="zoneMouseEnter" @mouseleave="zoneMouseLeave" class="iconZone iconSrc"></a>
+			<a  @mouseenter="emailMouseEnter" @mouseleave="emailMouseLeave" class="iconEmail iconSrc"></a>
 			<a href="#" class="login">登陆</a>
 		</div>
 	</div>
-	<Nav :navList="navList" :moreListOne="moreListOne" :moreListTwo="moreListTwo"></Nav>
+	<qq-nav :navList="navList" :moreListOne="moreListOne" :moreListTwo="moreListTwo"></qq-nav>
 </template>
 
 <script>
-	import Nav from './Nav.vue'
+	import qqNav from './QqNav.vue'
 	export default {
 		components: {
-			Nav,
+			qqNav,
 		},
 		methods: {
+			emailMouseEnter: function(e) {
+				e.target.classList.add('iconEmailActive');
+			},
+			emailMouseLeave: function (e) {
+				e.target.classList.remove('iconEmailActive');
+			},
+			zoneMouseEnter: function (e) {
+				e.target.classList.add('iconZoneActive');
+			},
+			zoneMouseLeave: function (e) {
+				e.target.classList.remove('iconZoneActive');
+			},
 			/*
 			 * 鼠标移动到 列表的时候，循环列表，把click 类删除，
 			 * 给触发 mouseenter a 标签 添加 下划线
@@ -250,17 +262,23 @@
 		right: 0;
 		top: 23px;
 		font-size: 0px;
-
-		.icon {
+        a {
 			display: inline-block;
 			width: 40px;
-			height: 40px;
-			font-size: 30px;
+			height: 40px; 
 			cursor: pointer;
-
-			&:hover {
-				color: #FFA500;
-			}
+		}
+		.iconZone {
+		background-position: 0 -90px;
+		}
+		.iconEmail {
+		background-position: 0 -184px;
+		}
+		.iconZoneActive {
+		background-position: 0 -140px;
+		}
+		.iconEmailActive {
+		background-position: 0 -234px;
 		}
 
 		.login {

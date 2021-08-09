@@ -1,25 +1,47 @@
-const express = require('express')
-const app = express()
+const express = require('express'); //引入核心模块
+const app = express(); // 实例化一个应用
+// 所有的程序操作  都是使用这个应用处理的
 
-var panghu = require('./static/panghu')  //本地json文件数据
+const noteNews = require('./static/noteNews.json'); //本地json文件数据
+const antiviraNews = require('./static/antiviral.json'); //本地json文件数据
+const topic = require('./static/dailyTopic.json');
+// const noteNewsRoutes = express.Router();
+// app.use('/api');
+//express 配置结束
 
-var apiRoutes = express.Router();
-app.use('/api', apiRoutes)
 module.exports = {
- devServer: {
-        before(app) {
-            app.get('/api/panghu', (req, res) => {
-                res.json({
-                    errno: 0,   // 这里是你的json内容
-                    data: panghu
-                })
-            })
-        },
-        open: process.platform === 'darwin',
-        host: '0.0.0.0',
-        port: 8080,
-        https: false,
-        hotOnly: false,
-        proxy: null      //设置跨域，即将本文件内任何没有匹配到的静态文件，都指向跨域地址
-    },
+	devServer: {
+		before(app) {
+			app.get('/api/news/notice', (req, res) => {
+					res.json({
+						error: 0,
+						data: noteNews
+					});
+				}),
+				app.get('/api/news/antiviral', (req, res) => {
+					res.json({
+						error: 0,
+						data: antiviraNews
+					});
+				}),
+				app.get('/api/topic', (req, res) => {
+					res.json({
+						error: 0,
+						data: topic
+					});
+				})
+		},
+		open: process.platform === 'darwin',
+		host: 'localhost',
+		port: 8080,
+		https: false,
+		hotOnly: false,
+		proxy: {
+			'/api': {
+				target: 'https://devapi.qweather.com/v7/weather/now?',
+				changeOrigin: true,
+			}
+		}
+	}
+
 }
