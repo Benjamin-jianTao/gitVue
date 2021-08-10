@@ -20,6 +20,13 @@
 	@include clearfix;
 	background: url(/hd_bg.png) no-repeat;
 }
+//模块内部小标题
+.small_title {
+	font-size: 16px;
+	font-weight: bold;
+	color: #25336d;
+	cursor: pointer;
+}
 //模块内部大标题
 .big_title {
 	font-size: 18px;
@@ -28,6 +35,7 @@
 	display: inline-block;
 	line-height: 36px;
 	padding:14px 0 7px;
+	cursor: pointer;
 }
 // 模块顶部小标题
 .title {
@@ -49,8 +57,13 @@
 	display: inline-block;
 	font-size: 20px;
 	line-height: 40px;
-	color: #1479D7;
+	border-bottom:4px solid #fff;
+	cursor:pointer;
+}
+//模块顶部大标题 active
+.mod_title_active {
 	border-bottom:4px solid #1479D7;
+	color: #1479D7;
 }
 // 标题 下横线
 .hd {
@@ -71,6 +84,7 @@
 	line-height: 36px;
 	font-size: 16px;
 	color: #333;
+	cursor: pointer;
 	&:hover {
 		color: #1479D7;
 	};
@@ -104,6 +118,7 @@
 	cursor: pointer;
 	z-index: 2;
 }
+// 视频播放大按钮
 .player_Big {
 	width: 32px;
 	height: 32px;

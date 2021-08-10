@@ -87,7 +87,7 @@
 				}
 			  }
 			},
-			move: function(offset) {
+			/* move: function(offset) {
 				let speed = offset / (this.time / this.rate);
 				let global = parseFloat(this.$refs.banner.style.left) - offset;
 				console.log(global);
@@ -106,6 +106,28 @@
 							.$refs.banner.style.left = 0 + 'px';
 					} else {
 						this.$refs.banner.style.left = parseFloat(this.$refs.banner.style.left) - speed + 'px';
+						this.inAnimal = true;
+					}
+				}, this.rate)
+			}, */
+			move: function(offset) {
+				let speed = offset / (this.time / this.rate);
+				let global = parseFloat(this.ulLeft) - offset;
+				console.log(global);
+				for (let i = 0; i < this.$refs.point.children.length; i++) {
+					this.$refs.point.children[i].setAttribute("class", "");
+				}
+				this.$refs.point.children[this.index - 1].setAttribute("class", "active");
+				let bannerIng = setInterval(() => {
+					if (parseFloat(this.ulLeft) == global || Math.abs(Math.abs(global) - Math.abs(parseFloat(this.ulLeft))) < Math.abs(speed)) {
+						this.ulLeft = global + 'px';
+						clearInterval(bannerIng);
+						this.inAnimal = false;
+						//最后一张轮播图
+						if (parseFloat(this.ulLeft) == (this.$refs.banner.children.length - 1) * -this.banWidth) 
+							this.ulLeft = 0 + 'px';
+					} else {
+						this.ulLeft = parseFloat(this.ulLeft) - speed + 'px';
 						this.inAnimal = true;
 					}
 				}, this.rate)

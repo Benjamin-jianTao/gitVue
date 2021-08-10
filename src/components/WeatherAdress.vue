@@ -120,7 +120,7 @@
 			 *鼠标移开 显示要闻组件 
 			 */
 			leaveAdress: function () {
-				
+				this.$emit("leaveWeatherAdress");
 			},
 			/*
 			 *点击设置城市后，动态设置组件的 animation 属性，并动画 完成之后 删除该属性，因为
@@ -387,7 +387,7 @@
 					background: linear-gradient(#fbfbfb, #ededed);
 					outline: none;
 					position: absolute;
-					left: 134px;
+					left: 145px;
 					top: 1px;
 					border: none;
 					cursor: pointer;

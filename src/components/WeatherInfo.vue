@@ -1,5 +1,5 @@
 <template>
-	<div class="weather_info" ref="weather_info" style="animation: test1 .5s linear">
+	<div class="weather_info" @mouseleave="leaveWeatherInfo" ref="weather_info" style="animation: test1 .5s linear">
 		<section class="adressWeather">
 			<h2>{{adm2}} {{now.textDay}} {{now.temp}}℃</h2>
 			<span @click="changeWeatherInfo">更换城市</span>
@@ -65,6 +65,12 @@
 			}
 		},
 		methods: {
+			/*
+			* 鼠标移开 weatherInfo 组件
+			*/
+			leaveWeatherInfo: function () {
+				this.$emit("leaveWeatherInfo");
+			},
 			/*
 			* 初始化天气信息 根据地区ID 获取当天天气，3天天气信息，空气质量信息
 			*/

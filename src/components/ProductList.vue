@@ -1,7 +1,7 @@
 <template>
 	<div class="container_top">
 		<div @mouseenter="mouseInProduct" @mouseleave="mouseOutProduct" class="listContainer_in" ref="listContainerIn">
-			<div class="stretch_list" @mouseenter="mouseInStretcht" @mouseleave="mouseOutStretch"  ref="stretchList">
+			<div class="stretch_list" style="left:0px;" @mouseenter="mouseInStretcht" @mouseleave="mouseOutStretch"  ref="stretchList">
 				<ul  class="list_1">
 					<li><a href="#">企鹅FM</a></li>
 					<li><a href="#">微云</a></li>
@@ -37,11 +37,10 @@
 					<li><a href="#">QQ彩票</a></li>
 					<li><a href="#">星钻</a></li>
 				</ul>
+				
 			</div>
-			<div ref="stretchButton" @click="stretchClick" @mouseenter="mouseInButton" @mouseleave="mouseOutButton" class="stretch_button" type="button">
-				<span class="arrow" ref="product_arrow"></span>
-			</div>
-			<div @mouseover="mousemMoveFixedList"  @mouseout="mouseOutFixedList" class="fixed_list" ref="fixedList">
+			
+			<div @mouseenter="mousemMoveFixedList"  @mouseleave="mouseOutFixedList" class="fixed_list" ref="fixedList">
 				<ul class="list_1">
 					<li><a href="#">新闻APP</a></li>
 					<li><a href="#">体育APP</a></li>
@@ -81,8 +80,11 @@
 					<li><a href="#">理财通</a></li>
 					<li><a href="#" class="product_all">全部</a></li>
 				</ul>
+				
 			</div>
-			
+			<div ref="stretchButton" style="left:-18px" @click="stretchClick" @mouseenter="mouseInButton" @mouseleave="mouseOutButton" class="stretch_button" type="button">
+				<span class="arrow" ref="product_arrow"></span>
+			</div>
 		</div>
 	  <div class="container_middle">
 		  <olympic></olympic>
@@ -100,6 +102,7 @@
 			   inFixed: false,// 检测 鼠标是否在右侧固定产品列表
 			   inProduct: false,// 检测 鼠标是否 存在 产品列表范围
 			   inbutton: false,
+			   inanimal: false,
 			}
 		},
 		components: {
@@ -126,10 +129,7 @@
 			mouseOutStretch: function () {
 				
 				setTimeout(()=> {
-					if(!this.inFixed == true && !this.inbutton == true) {
-						this.inFixed=!this.inFixed;
-						this.inbutton = !this.inbutton;
-						this.isStretch = false;
+					if(!this.inProduct == true && !this.inbutton == true) {
 						console.log("鼠标离开左侧列表应为false"+this.isStretch);
 						this.noneStyle();
 					}
@@ -141,7 +141,7 @@
 			* 鼠标在伸展产品列表中, mousemove 冒泡触发父级 mouseenter 改变按钮样式
 			*/
 			mouseInStretcht: function () {
-				this.isStretch =true;
+				
 				console.log("鼠标进入左侧列表,应为true"+this.isStretch);
 			},
 			/*
@@ -149,6 +149,7 @@
 			*/
 			mouseOutProduct: function () {
 				this.inProduct = false;
+				this.isStretch = false;
 				console.log("鼠标在不在产品列表中")
 				this.$refs.stretchButton.style.background ="#fff";//按钮颜色
 				this.$refs.product_arrow.style.backgroundPosition = '0 -845px';
@@ -158,34 +159,68 @@
 			* 鼠标在产品列表中
 			*/
 			mouseInProduct: function () {
+			
 				this.inProduct = true;
 				console.log("鼠标在产品列表中")
 				this.$refs.stretchButton.style.background ="#0f82ff";//按钮颜色
 				this.$refs.product_arrow.style.backgroundPosition = '0 -895px';
 			},
-			noneStyle: function () {
-				this.$refs.stretchButton.style.left="-18px";
-				this.$refs.listContainerIn.style.borderLeft="1px solid #cae0f3";
-				this.$refs.stretchButton.style.background ="#fff"
-				this.$refs.stretchList.style.display="none";
-				this.$refs.product_arrow.style.backgroundPosition = '0 -845px';
+			noneStyle: function () {		
+				// if(this.isStretch ==true){			
+				var suo  = setInterval(() => {	
+					this.$refs.stretchList.style.left = parseFloat(this.$refs.stretchList.style.left) + 48 + "px";   
+					 this.$refs.stretchButton.style.left = parseFloat(this.$refs.stretchButton.style.left) + 48 + "px";
+					if(parseFloat(this.$refs.stretchList.style.left) >= 0){
+						this.$refs.stretchList.style.display="none";
+						this.$refs.stretchList.style.left = 0 + "px";
+						this.$refs.stretchButton.style.left="-18px";
+						this.$refs.listContainerIn.style.borderLeft="1px solid #cae0f3";
+						this.$refs.stretchButton.style.background ="#fff"
+						
+						this.$refs.product_arrow.style.backgroundPosition = '0 -845px';
+						this.inanimal = false;
+						clearInterval(suo);
+					}
+				},50);
+				
+				
+			  // }
 			},
 			blockStyle: function () {
-				this.$refs.stretchButton.style.left="-495px";//按钮的定位
-				this.$refs.stretchButton.style.background ="#0f82ff";//按钮颜色
-				this.$refs.listContainerIn.style.borderLeft="none";//消除容器 左边框
-				this.$refs.stretchList.style.display="block";//显示 左侧产品列表
-				this.$refs.product_arrow.style.backgroundPosition = '0 -946px';// 按钮箭头指向
+				
+				var shen  = setInterval(() => {
+					
+					
+					//显示 左侧产品列表
+		
+					this.$refs.stretchList.style.left = parseFloat(this.$refs.stretchList.style.left) - 48 + "px";
+				    this.$refs.stretchButton.style.left = parseFloat(this.$refs.stretchButton.style.left) - 48 + "px";
+					this.$refs.stretchList.style.display="block";
+					 
+					if(parseFloat(this.$refs.stretchList.style.left) == -480){
+						
+						this.inanimal = false;
+						this.$refs.stretchList.style.left = -480+"px";
+						this.$refs.stretchButton.style.left="-495px";//按钮的定位
+						this.$refs.stretchButton.style.background ="#0f82ff";//按钮颜色
+						this.$refs.listContainerIn.style.borderLeft="none";//消除容器 左边框
+						
+						this.$refs.product_arrow.style.backgroundPosition = '0 -946px';// 按钮箭头指向
+						clearInterval(shen);
+					}
+				},50);
+				
+			  
 			},
 			/*
 			* 点击箭头按钮 改变各种样式
 			*/
 			stretchClick: function () {
-				this.isStretch = !this.isStretch;
-				console.log("鼠标点击箭头"+this.isStretch);
-				if(this.isStretch == true) {
+				 this.isStretch = !this.isStretch;
+				 console.log("this.isStretch"+this.isStretch)
+				if( this.isStretch == true){
 					this.blockStyle();
-				}else {
+				}else{
 					this.noneStyle();
 				}
 				
@@ -195,7 +230,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "../assets/global";
+	// @import "../assets/global";
 
 	.container_top {
 		width: 440px;
@@ -230,18 +265,20 @@
 		.listContainer_in {
 			border: 1px solid #cae0f3;
             position: relative;
+			width: 440px;
+			height: 159px;
 			margin:3px 0 13px;
 			.stretch_list {
 				width: 480px;
 				position: absolute;
-				left: -480px;
+				left: -18px;
 				top: -1px;
-				z-index: 2;
+				z-index: 1;
 				border: 1px solid #cae0f3;
 				border-right: none;
 				background: #fff;
 				display: none;
-				
+	
 				ul {
 				  width: 480px;		 
 				  border-bottom:1px solid #cae0f3;   
@@ -261,13 +298,17 @@
 					background-color: #F5F8FC;
 					
 				}
+				
 			}
 			.fixed_list {
-				
+				position: absolute;
+				left: 0;
+				top: 0;
+				z-index: 3;
 				ul {
 				  width: 430px;	
 				  border-bottom:1px solid #cae0f3; 
-				 
+				 background-color: #fff;
 				}
 		        .list_1 {
 		        	border-bottom:1px solid #cae0f3; 
@@ -305,31 +346,31 @@
 		        	}
 		        }
 			}
-		
-			
-			.stretch_button {
+		.stretch_button {
+			position: absolute;
+			left: -18px;
+			top: -1px;
+			width: 16px;
+			height: 40px;
+			border: 1px solid #cae0f3;
+			padding: 0;
+			display: block;
+			background: #fff;
+			span {
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				background: url(/icons.png) no-repeat;
+				background-position: 0 -845px;
 				position: absolute;
-				left: -18px;
-				top: -1px;
-				width: 16px;
-				height: 40px;
-				border: 1px solid #cae0f3;
-				padding: 0;
-				display: block;
-				background: #fff;
-				span {
-					display: inline-block;
-					width: 20px;
-					height: 20px;
-					background: url(/icons.png) no-repeat;
-					background-position: 0 -845px;
-					position: absolute;
-					left: 5px;
-					top: 12px;
-					
-				}
+				left: 5px;
+				top: 12px;
 				
 			}
+			
+		}
+			
+			
 			.product_all {
 				padding: 0 10px;
 				display: inline-block;

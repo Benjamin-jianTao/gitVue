@@ -8,9 +8,9 @@
 		<div class="main">
 			<div class="left">
 				<div class="news_c1 hd">
-					<h2 @mouseenter="displayNewsNotice">要闻</h2>
+					<h2 :class="{mod_title_active:isNews,mod_title: true}" @mouseenter="displayNewsNotice">要闻</h2>
 					<span></span>
-					<h2 @mouseenter="displayNewsAntiviral">抗肺炎</h2>
+					<h2 :class="{mod_title_active:isAntiviral,mod_title: true}" @mouseenter="displayNewsAntiviral">抗肺炎</h2>
 				</div>
 				<div @mouseenter="displayWeather" class="news_c2 weaher-info">
 
@@ -23,19 +23,24 @@
 				<div class="news_display">
 					<note-news v-show="isNews"></note-news>
 					<antiviral v-show="isAntiviral"></antiviral>
+				</div>
+				<div class="weather_display">
 					<weather-adress v-show="isWeatherAdress"
 										 ref="weatherAdress" 
 										 @sendAdress = "sendAdress"
 										 @formAdressChange ="formAdressChange"
 										 @displayWeatherCanser ="displayWeatherCanser"
+										 @leaveWeatherAdress = "leaveWeatherAdress"
 					></weather-adress>
 					<weather-info v-show="isWeatherInfo"
 									   ref="weatherInfo"
 									   @sendNowWeather = "sendNowWeather"
 									   :adm2 = "adm2"
 									   @changeWeatherInfo = "changeWeatherInfo"
+									   @leaveWeatherInfo = "leaveWeatherInfo"
 					></weather-info>
 				</div>
+				
 			</div>
 			<div class="middle">
 			  <topic></topic>
@@ -78,12 +83,30 @@
 		},
 		methods: {
 			/*
+			 *鼠标移开 weatherInfo 组件
+			 */
+			leaveWeatherInfo : function () {
+				setTimeout(() => {
+					this.isWeatherInfo = false;
+				},500);
+				
+			},
+			/*
+			 *鼠标移开 weatheradress 组件
+			 */
+			leaveWeatherAdress: function () {
+				setTimeout(() => {
+					this.isWeatherAdress = false;
+				},500);
+				
+			},
+			/*
 			 *取消按钮触发 显示weatherInfo组件 
 			 */
 			displayWeatherCanser: function () {
 				this.isAntiviral = false;
 				this.isNews = false;
-				this.isWeatherAdress =false;
+				this.isWeatherAdress = false;
 				this.isWeatherInfo = true;
 			},
 			/*
@@ -113,8 +136,7 @@
 				
 				this.sendAdress(adress);
 				// 切换组件
-				this.isAntiviral = false;
-				this.isNews = false;
+
 				this.isWeatherAdress =false;
 				this.isWeatherInfo = true;
 			},
@@ -124,8 +146,7 @@
 			 */
 			changeWeatherInfo: function () {
 				this.$refs.weatherAdress.changeAnimals();
-				this.isAntiviral = false;
-				this.isNews = false;
+			
 				this.isWeatherAdress =true;
 				this.isWeatherInfo = false;
 				
@@ -135,10 +156,10 @@
 			 */
 			displayWeather: function() {
 				
-				this.isAntiviral = false;
-				this.isNews = false;
+				// this.isAntiviral = false;
+				// this.isNews = false;
 				this.isWeatherAdress =true;
-				this.isWeatherInfo = false;
+				// this.isWeatherInfo = false;
 				
 			},
 			/*
@@ -149,6 +170,7 @@
 				this.isNews = false;
 				this.isWeatherAdress =false;
 				this.isWeatherInfo = false;
+				
 			},
 			/*
 			 *鼠标经过触发 显示 isNews组件 
@@ -219,12 +241,12 @@
 			position: absolute;
 			left: 0;
 			top: 0;
-		}
 			.news_c1 {
 				display: flex;
 				font-size: 20px;
 				text-decoration: none;
                 line-height: 44px;
+			
 				h2:first-child {
 					margin-right: 20px;
 
@@ -233,25 +255,7 @@
 				h2:last-child {
 					margin: 0 20px;
 				}
-
-				h2 {
-					color: #333;
-					border-bottom: 4px solid #fff;
-					cursor: pointer;
-
-					&:hover {
-						border-bottom: 4px solid #0B64EA;
-					}
-
-					a {
-						color: #333;
-
-						&:hover {
-							color: #0B64EA;
-						}
-					}
-				}
-
+			
 				span {
 					width: 1px;
 					height: 20px;
@@ -278,9 +282,16 @@
 					}
 				}
 			}
+		}
 			.news_display {
 				text-overflow: ellipsis; // 文本溢出时 显示省略符号 ..... 来代表被修剪的文本。
 				width: 440px;
+			}
+			.weather_display {
+				width: 440px;
+				position: absolute;
+				left: -3px;
+				top: 39px;
 			}
 		}
         .middle {
@@ -289,19 +300,6 @@
 			left: 480px;
 			top: 0px;
 			width: 440px;
-			p {
-					  overflow: hidden;
-					  text-overflow:ellipsis ;
-					  white-space: nowrap;
-			}
-			a {
-						color: #333;
-						font-size: 16px;
-						line-height: 36px;
-						&:hover {
-						 		color:#0B64EA;
-						  }
-			}
 		}
 		.right {
 			max-height: 1071px;

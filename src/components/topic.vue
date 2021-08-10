@@ -1,16 +1,16 @@
 <template>
 	<div class="topic_daily">
 		<div class="topic_title hd ">
-			<span class="mod_title">今日话题</span>
+			<span class="mod_title mod_title_active">今日话题</span>
 		</div>
 		<section>
 			<h2 class="big_title">{{dailyTopicH2}}</h2>
 			<div class="topic_newsType">
 				<template v-for="(item, index) in upNewList" :key="index">
 					<div class="newsType_item">
-						<div class="newsType"><a href="#">{{item.type}}</a></div>
+						<div class="newsType"><a href="#" class="small_title bd">{{item.type}}</a></div>
 						<span class="short-term"></span>
-						<a href="#" class="text">{{item.newsText}}</a>
+						<a href="#" class="text bd">{{item.newsText}}</a>
 					</div>
 				</template>
 			</div>
@@ -24,16 +24,16 @@
 	<div class="threedaily_main">
 		<div class="pub_pic_text "><!-- :src="threedaily.picText.src" -->
 			<video controls="controls" src=""></video>
-			<a href="#">{{threedaily.picText.text}}</a>
+			<a class="bd" href="#">{{threedaily.picText.text}}</a>
 			<i class="player_Small iconSrc"></i>
 		</div>
 		<ul>
-			<li><a href="#">{{threedaily.seeponit.pointText1}}</a></li>
-			<li><a href="#">{{threedaily.seeponit.pointText2}}</a></li>
+			<li><a href="#" class="text bd">{{threedaily.seeponit.pointText1}}</a></li>
+			<li><a href="#" class="text bd">{{threedaily.seeponit.pointText2}}</a></li>
 			<li class="threedaily_bttom" v-for="(item, index) in threedaily.videoText" :key="index">
-			  <a href="#" class="icon iconSrc mod_icom">{{item.videotext}}</a>
+			  <a href="#" class="icon iconSrc mod_icom small_title bd">{{item.videotext}}</a>
 			  <span  class="short-term"></span>
-			  <p><a href="#" class="text">{{item.text}}</a></p>
+			  <p><a href="#" class="text bd">{{item.text}}</a></p>
 			</li>
 		</ul>
 		
@@ -46,15 +46,15 @@
 	</div>
 	<div class="pub_pic_text">
 		<video src="" controls="controls"></video>
-		<a href="#">{{topic_image.video_html}}</a>
+		<a class="bd" href="#">{{topic_image.video_html}}</a>
 		<i class="player_Small iconSrc"></i>
-		<span class="version">{{topic_image.version}}</span>
+		<span class="version bd">{{topic_image.version}}</span>
 	</div>
 	<ul>
 		<li class="pngTopic_item" v-for="(item, index) in topic_image.videoText" :key="index">
-			<a href="#" class="icon iconSrc mod_icom">{{item.videotext}}</a>
+			<a href="#" class="icon iconSrc mod_icom small_title bd">{{item.videotext}}</a>
 			<span class="short-term"></span>
-			<a href="#" class="text">{{item.text}}</a>
+			<a href="#" class="text bd">{{item.text}}</a>
 		</li>
 	</ul>
 </div>
@@ -177,7 +177,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import '../assets/global';
+	// @import '../assets/global';
 	.topic_daily {
 	    section {
 	    	.upH2 {
@@ -226,6 +226,9 @@
 	}
 }
 .pngTopic {
+	.mod_title {
+		
+	}
 	.pngTopic_top {
 		background-position: 53px 20px;
 	}
