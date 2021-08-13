@@ -12,19 +12,19 @@ const topic = require('./static/dailyTopic.json');
 module.exports = {
 	devServer: {
 		before(app) {
-			app.get('/api/news/notice', (req, res) => {
+			app.get('/news/notice', (req, res) => {
 					res.json({
 						error: 0,
 						data: noteNews
 					});
 				}),
-				app.get('/api/news/antiviral', (req, res) => {
+				app.get('/news/antiviral', (req, res) => {
 					res.json({
 						error: 0,
 						data: antiviraNews
 					});
 				}),
-				app.get('/api/topic', (req, res) => {
+				app.get('/topic', (req, res) => {
 					res.json({
 						error: 0,
 						data: topic
@@ -36,12 +36,7 @@ module.exports = {
 		port: 8080,
 		https: false,
 		hotOnly: false,
-		proxy: {
-			'/api': {
-				target: 'https://devapi.qweather.com/v7/weather/now?',
-				changeOrigin: true,
-			}
-		}
+		
 	}
 
 }
