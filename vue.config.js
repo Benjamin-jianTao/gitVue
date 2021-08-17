@@ -5,6 +5,7 @@ const app = express(); // 实例化一个应用
 const noteNews = require('./static/noteNews.json'); //本地json文件数据
 const antiviraNews = require('./static/antiviral.json'); //本地json文件数据
 const topic = require('./static/dailyTopic.json');
+const eyecatcher = require('./static/eyecatcher.json');
 // const noteNewsRoutes = express.Router();
 // app.use('/api');
 //express 配置结束
@@ -28,6 +29,12 @@ module.exports = {
 					res.json({
 						error: 0,
 						data: topic
+					});
+				}),
+				app.get('/eyecatcher', (req, res) => {
+					res.json({
+						error: 0,
+						data: eyecatcher
 					});
 				})
 		},

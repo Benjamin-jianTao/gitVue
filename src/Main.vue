@@ -6,6 +6,7 @@
 			<banner-slider></banner-slider>
 		</div>
 		<div class="main">
+			<div class="main_top">
 			<div class="left">
 				<div class="news_c1 hd">
 					<h2 :class="{mod_title_active:isNews,mod_title: true}" @mouseenter="displayNewsNotice">要闻</h2>
@@ -49,9 +50,10 @@
 				<product-list></product-list>
 			</div>
 			
+			
 		</div>
-		
-		
+		<eyecatcher></eyecatcher>
+		</div>
 	</div>
 </template>
 
@@ -66,6 +68,7 @@
 	import VueEvent from "./event.js"
 	import Topic from "./components/topic.vue"
 	import ProductList from "./components/ProductList.vue"
+	import Eyecatcher from "./components/Eyecatcher.vue"
 	export default {
 		data: function() {
 			return {
@@ -192,6 +195,7 @@
 			weatherInfo,
 			Topic,
 			ProductList,
+			Eyecatcher,
 		},
 		created: function () {
            
@@ -234,8 +238,11 @@
 		}
 
 		.main {
-			position: relative;
-			height: 1071px;
+			.main_top {
+				position: relative;
+				height: 1071px;
+			}
+		
         .left {
 			width: 440px;
 			position: absolute;
